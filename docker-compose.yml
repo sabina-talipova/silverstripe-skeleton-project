@@ -1,0 +1,105 @@
+version: "3.8"
+
+networks:
+  silverstripe-node:
+
+
+volumes:
+  db-data:
+
+
+services:
+
+  database:
+    image: mysql:latest
+    container_name: skel-mysql-container
+    hostname: database
+    volumes:
+      - ./mysql:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    restart: always # always restart unless stopped manually
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_ALLOW_EMPTY_PASSWORD=${MYSQL_ALLOW_EMPTY_PASSWORD}
+    networks:
+      - silverstripe-node
+
+  silverstripe81:
+    build:
+      context: .
+      dockerfile: Dockerfile.81
+    container_name: skel-php81-container
+    volumes:
+      - .:/var/www/html
+    ports:
+      - 3000:80
+    depends_on:
+      - database
+    environment:
+      - SS_ENVIRONMENT_TYPE=${SS_ENVIRONMENT_TYPE}
+      - SS_DEFAULT_ADMIN_USERNAME=${SS_DEFAULT_ADMIN_USERNAME}
+      - SS_DEFAULT_ADMIN_PASSWORD=${SS_DEFAULT_ADMIN_PASSWORD}
+      - SS_DATABASE_SERVER=${SS_DATABASE_SERVER}
+      - SS_DATABASE_USERNAME=${SS_DATABASE_USERNAME}
+      - SS_DATABASE_PASSWORD=${SS_DATABASE_PASSWORD}
+      - SS_DATABASE_NAME=${SS_DATABASE_NAME}
+      # DEBUGBAR_DISABLE=true
+      - SS_ERROR_LOG=${SS_ERROR_LOG}
+    networks:
+      - silverstripe-node
+
+  # silverstripe74:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.74
+  #   container_name: skeleton-php74-container
+  #   volumes:
+  #     - .:/var/www/html
+  #   ports:
+  #     - 90:80
+  #   depends_on:
+  #     - database
+  #   # links:
+  #   #   - database
+  #   environment:
+  #     - SS_ENVIRONMENT_TYPE=dev
+  #     - SS_DEFAULT_ADMIN_USERNAME=admin
+  #     - SS_DEFAULT_ADMIN_PASSWORD=password
+  #     - SS_DATABASE_SERVER=database
+  #     - SS_DATABASE_USERNAME=root
+  #     - SS_DATABASE_PASSWORD=root
+  #     - SS_DATABASE_NAME=SS_local
+  #     # DEBUGBAR_DISABLE=true
+  #     - SS_ERROR_LOG=silverstripe.log
+  #   networks:
+  #     - silverstripe-node
+
+  # composer:
+  #   image: composer:latest
+  #   container_name: skeleton-composer-container
+  #   volumes:
+  #     - ./projects:/var/www/html
+  #   working_dir: /var/www/html
+  #   depends_on:
+  #     - silverstripe80
+  #     - silverstripe74
+  #   networks:
+  #     - silverstripe-node
+
+  # npm:
+  #   image: node:10
+  #   container_name: skeleton-node-container
+  #   volumes:
+  #     - .:/var/www/html
+  #   working_dir: /var/www/html
+  #   entrypoint: [ 'npm', 'install' ]
+  #   depends_on:
+  #     - silverstripe80
+  #     - silverstripe74
+  #   networks:
+  #     - silverstripe-node
+
+
