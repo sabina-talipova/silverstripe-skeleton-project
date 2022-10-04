@@ -3,16 +3,14 @@ version: "3.8"
 networks:
   silverstripe-node:
 
-
 volumes:
   db-data:
-
 
 services:
 
   database:
     image: mysql:latest
-    container_name: skel-mysql-container
+    container_name: skeleton-mysql-container
     hostname: database
     volumes:
       - ./mysql:/var/lib/mysql
