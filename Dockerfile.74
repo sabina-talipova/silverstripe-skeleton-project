@@ -1,0 +1,15 @@
+FROM brettt89/silverstripe-web:7.4-apache
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN apt-get update && apt-get install bash-completion \
+    nano
+
+# ENV NODE_VERSION 10.13.0
+
+# RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+# RUN bash install.sh
+
+# RUN export NVM_DIR="~/.nvm"
+# RUN [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# RUN [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+# RUN source ~/.bash_profile
+# RUN nvm install node $NODE_VERSION
