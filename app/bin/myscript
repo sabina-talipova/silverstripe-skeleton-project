@@ -1,0 +1,15 @@
+#!/usr/bin/env php
+<?php
+
+use App\Script;
+
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+$handle = fopen ("php://stdin","r");
+$line = fgets($handle);
+
+$script = new Script();
+$script->init($line);
+
+echo "\n";
+echo "Thank you, continuing...\n";
