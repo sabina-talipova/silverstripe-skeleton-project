@@ -12,7 +12,7 @@ services:
 
   database:
     image: mysql:latest
-    container_name: skel-mysql-container
+    container_name: skeleton-mysql-container
     hostname: database
     volumes:
       - ./mysql:/var/lib/mysql
@@ -76,7 +76,6 @@ services:
   #     - SS_ERROR_LOG=silverstripe.log
   #   networks:
   #     - silverstripe-node
-
   # composer:
   #   image: composer:latest
   #   container_name: skeleton-composer-container
