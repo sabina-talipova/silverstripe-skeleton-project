@@ -65,13 +65,13 @@ services:
   #   # links:
   #   #   - database
   #   environment:
-  #     - SS_ENVIRONMENT_TYPE=dev
-  #     - SS_DEFAULT_ADMIN_USERNAME=admin
-  #     - SS_DEFAULT_ADMIN_PASSWORD=password
-  #     - SS_DATABASE_SERVER=database
-  #     - SS_DATABASE_USERNAME=root
-  #     - SS_DATABASE_PASSWORD=root
-  #     - SS_DATABASE_NAME=SS_local
+  #     - SS_ENVIRONMENT_TYPE=${SS_ENVIRONMENT_TYPE}
+  #     - SS_DEFAULT_ADMIN_USERNAME=${SS_DEFAULT_ADMIN_USERNAME}
+  #     - SS_DEFAULT_ADMIN_PASSWORD=${SS_DEFAULT_ADMIN_PASSWORD}
+  #     - SS_DATABASE_SERVER=${SS_DATABASE_SERVER}
+  #     - SS_DATABASE_USERNAME=${SS_DATABASE_USERNAME}
+  #     - SS_DATABASE_PASSWORD=${SS_DATABASE_PASSWORD}
+  #     - SS_DATABASE_NAME=${SS_DATABASE_NAME}
   #     # DEBUGBAR_DISABLE=true
   #     - SS_ERROR_LOG=silverstripe.log
   #   networks:
